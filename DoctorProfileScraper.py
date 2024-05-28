@@ -13,20 +13,20 @@ def scrape_profile(file_path):
 
     # Set up the Selenium WebDriver
     service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service)
-
-    # Initialize lists to store the scraped data
-    consultation_types = []
-    consultation_fees = []
+    options = Options()
+    #options.add_argument('--headless')  # Run in headless mode
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    driver = webdriver.Chrome(service=service, options=options)
 
     # Identify the starting point based on existing data
     start_index = 0
     empty_pages = 0
-    max_empty_pages = 10
-    
+    max_empty_pages = 1000
+
     # Loop through each link in the DataFrame starting from the identified index
     for index, row in df.iterrows():
-        if not (pd.isna(row['Consultation_Type_1']) and pd.isna(row['Consultation_Fee_1'])):
+        if not (pd.isna(row.get('Consultation_Type_1')) and pd.isna(row.get('Consultation_Fee_1'))):
             continue  # Skip rows that already have consultation type and fee values
 
         link = row['Link']
@@ -38,14 +38,14 @@ def scrape_profile(file_path):
 
             # Look for the specific div and spans
             fee_divs = driver.find_elements(By.CLASS_NAME, 'dl-profile-card-content')
-            
+
             types = []
             fees = []
-            
+
             for fee_div in fee_divs:
                 fee_names = fee_div.find_elements(By.CLASS_NAME, 'dl-profile-fee-name')
                 fee_tags = fee_div.find_elements(By.CLASS_NAME, 'dl-profile-fee-tag')
-                
+
                 for name, tag in zip(fee_names, fee_tags):
                     types.append(name.text)
                     fees.append(tag.text)
@@ -63,10 +63,7 @@ def scrape_profile(file_path):
             max_length = max(len(types), len(fees))
             types.extend([''] * (max_length - len(types)))
             fees.extend([''] * (max_length - len(fees)))
-            
-            consultation_types.append(types)
-            consultation_fees.append(fees)
-            
+
             # Add the pairs to the DataFrame
             for i in range(len(types)):
                 column_name_type = f"Consultation_Type_{i+1}"
@@ -80,9 +77,7 @@ def scrape_profile(file_path):
 
         except Exception as e:
             print(f"Error processing {link}: {e}")
-            consultation_types.append([])
-            consultation_fees.append([])
-            time.sleep(5)  # Retry after 5 seconds
+            time.sleep(5)
 
         # Save the updated DataFrame to a new Excel file after each page
         df.to_excel(file_path, index=False)
