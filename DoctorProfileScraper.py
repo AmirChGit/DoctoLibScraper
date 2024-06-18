@@ -7,7 +7,7 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 
 # Define the name of the Excel file
-file_name = "psychologue_tourcoing.xlsx"
+file_name = "ergotherapeute_france.xlsx"
 file_path = f"./{file_name}"  # Assuming the file is in the same directory as this script
 
 def scrape_profile(file_path):
