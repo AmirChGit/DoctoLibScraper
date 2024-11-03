@@ -29,7 +29,6 @@ Download ChromeDriver: The script uses ChromeDriver for Selenium. The webdriver-
 
 Run the Script: Execute the script in your terminal:
 python doctor_profile_scraper.py
-# Doctor Profile Scraper
 
 You will be prompted to enter: 
 - **Type of doctor** (e.g., psychologue) 
