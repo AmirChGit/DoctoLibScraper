@@ -29,23 +29,27 @@ Download ChromeDriver: The script uses ChromeDriver for Selenium. The webdriver-
 
 Run the Script: Execute the script in your terminal:
 python doctor_profile_scraper.py
-You will be prompted to enter:
+# Doctor Profile Scraper
 
-Type of doctor (e.g., psychologue)
-Location (e.g., france)
-Data Storage: The scraped data will be saved in an Excel file named {docteur}_{localisation}.xlsx in the same directory as the script. The file will include:
+You will be prompted to enter: 
+- **Type of doctor** (e.g., psychologue) 
+- **Location** (e.g., france) 
 
-Doctor Names
-Links to their profiles
-Consultation Types and Fees
-How It Works
-Initialization: The script starts by initializing the WebDriver with headless options.
-User Input: It prompts the user for the type of doctor and their location, forming the base URL for scraping.
-Scraping Process: The script navigates through multiple pages, extracting doctor names and profile links. It tracks empty pages to avoid unnecessary requests.
-Profile Data Extraction: For each doctor link collected, the script accesses the profile page and scrapes consultation types and fees.
-Excel Update: All collected data is periodically saved to an Excel file to ensure no data loss.
-Error Handling
-The script includes basic error handling for web element retrieval and page loading issues. If an error occurs, the script will log the error and attempt to continue scraping or retry after a delay.
+## Data Storage 
+The scraped data will be saved in an Excel file named `{docteur}_{localisation}.xlsx` in the same directory as the script. The file will include: 
+- **Doctor Names** 
+- **Links to their profiles** 
+- **Consultation Types and Fees** 
 
-Conclusion
+## How It Works 
+- **Initialization**: The script starts by initializing the WebDriver with headless options. 
+- **User Input**: It prompts the user for the type of doctor and their location, forming the base URL for scraping. 
+- **Scraping Process**: The script navigates through multiple pages, extracting doctor names and profile links. It tracks empty pages to avoid unnecessary requests. 
+- **Profile Data Extraction**: For each doctor link collected, the script accesses the profile page and scrapes consultation types and fees. 
+- **Excel Update**: All collected data is periodically saved to an Excel file to ensure no data loss. 
+
+## Error Handling 
+The script includes basic error handling for web element retrieval and page loading issues. If an error occurs, the script will log the error and attempt to continue scraping or retry after a delay. 
+
+## Conclusion 
 This Doctor Profile Scraper automates the tedious process of gathering doctor information from the Doctolib website, making it a valuable tool for anyone needing comprehensive data on medical professionals in a specified area.
